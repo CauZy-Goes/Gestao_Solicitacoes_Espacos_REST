@@ -624,6 +624,7 @@ public class Menu {
 					addLogAcoes("A solicitacao : " + idSolicitacao + "foi rejeitada pelo " + usuarioAtual.getNomeUsuario());
 					
 					solicitacoesService.save(solicitacoeRejeitada);
+					break;
 				case 3:
 					sair = false;
 					break;
