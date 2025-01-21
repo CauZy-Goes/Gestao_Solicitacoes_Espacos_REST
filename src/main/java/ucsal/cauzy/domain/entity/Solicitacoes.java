@@ -10,7 +10,7 @@ public class Solicitacoes implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idsolicitacoes;
+    private Integer idSolicitacoes;
 
     @Column(name = "data_hora_solicitacao", nullable = false)
     private LocalDateTime dataHoraSolicitacao;
@@ -37,12 +37,12 @@ public class Solicitacoes implements Serializable {
     @JoinColumn(name = "idstatus", nullable = false)
     private Status status;
 
-    public Integer getIdsolicitacoes() {
-        return idsolicitacoes;
+    public Integer getIdSolicitacoes() {
+        return idSolicitacoes;
     }
 
-    public void setIdsolicitacoes(Integer idsolicitacoes) {
-        this.idsolicitacoes = idsolicitacoes;
+    public void setIdSolicitacoes(Integer idsolicitacoes) {
+        this.idSolicitacoes = idsolicitacoes;
     }
 
     public LocalDateTime getDataHoraSolicitacao() {
@@ -103,7 +103,7 @@ public class Solicitacoes implements Serializable {
 
     @Override
     public String toString() {
-        return "Solicitacoes [idsolicitacoes=" + idsolicitacoes + ", dataHoraSolicitacao=" + dataHoraSolicitacao
+        return "Solicitacoes [idsolicitacoes=" + idSolicitacoes + ", dataHoraSolicitacao=" + dataHoraSolicitacao
                 + ", dataHoraAprovacao=" + dataHoraAprovacao + ", dataHoraLocacao=" + dataHoraLocacao
                 + ", usuarioAvaliador=" + usuarioAvaliador + ", usuarioSolicitante=" + usuarioSolicitante
                 + ", espacoFisico=" + espacoFisico + ", status=" + status + "]";

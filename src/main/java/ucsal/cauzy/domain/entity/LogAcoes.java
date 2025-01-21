@@ -10,7 +10,7 @@ public class LogAcoes implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idlogacoes;
+    private Integer idLogAcoes;
 
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
@@ -22,12 +22,12 @@ public class LogAcoes implements Serializable {
     @Column(name = "acao", nullable = false, length = 255)
     private String acao;
 
-	public Integer getIdlogacoes() {
-		return idlogacoes;
+	public Integer getIdLogAcoes() {
+		return idLogAcoes;
 	}
 
-	public void setIdlogacoes(Integer idlogacoes) {
-		this.idlogacoes = idlogacoes;
+	public void setIdLogAcoes(Integer idlogacoes) {
+		this.idLogAcoes = idlogacoes;
 	}
 
 	public LocalDateTime getDataHora() {
@@ -56,7 +56,7 @@ public class LogAcoes implements Serializable {
 
 	@Override
 	public String toString() {
-		return "LogAcoes [idlogacoes=" + idlogacoes + ", dataHora=" + dataHora + ", usuario=" + usuario + ", acao="
+		return "LogAcoes [idlogacoes=" + idLogAcoes + ", dataHora=" + dataHora + ", usuario=" + usuario + ", acao="
 				+ acao + "]";
 	}
 }

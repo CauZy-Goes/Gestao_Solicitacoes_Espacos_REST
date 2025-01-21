@@ -9,7 +9,7 @@ public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idusuario;
+    private Integer idUsuario;
 
     @Column(name = "nome_usuario", nullable = false, length = 255)
     private String nomeUsuario;
@@ -21,12 +21,12 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "idcargo", nullable = false)
     private Cargo cargo;
 
-	public Integer getIdusuario() {
-		return idusuario;
+	public Integer getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setIdusuario(Integer idusuario) {
-		this.idusuario = idusuario;
+	public void setIdUsuario(Integer idusuario) {
+		this.idUsuario = idusuario;
 	}
 
 	public String getNomeUsuario() {
@@ -55,7 +55,7 @@ public class Usuario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Usuario [idusuario=" + idusuario + ", nomeUsuario=" + nomeUsuario + ", email=" + email + ", cargo="
+		return "Usuario [idusuario=" + idUsuario + ", nomeUsuario=" + nomeUsuario + ", email=" + email + ", cargo="
 				+ cargo + "]";
 	}
     
