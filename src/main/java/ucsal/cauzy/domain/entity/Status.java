@@ -9,17 +9,17 @@ public class Status implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idstatus;
+    private Integer idStatus;
 
     @Column(name = "nome_status", nullable = false, length = 50)
     private String nomeStatus;
 
-	public Integer getIdstatus() {
-		return idstatus;
+	public Integer getIdStatus() {
+		return idStatus;
 	}
 
-	public void setIdstatus(Integer idstatus) {
-		this.idstatus = idstatus;
+	public void setIdStatus(Integer idstatus) {
+		this.idStatus = idstatus;
 	}
 
 	public String getNomeStatus() {
@@ -32,7 +32,7 @@ public class Status implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Status [idstatus=" + idstatus + ", nomeStatus=" + nomeStatus + "]";
+		return "Status [idstatus=" + idStatus + ", nomeStatus=" + nomeStatus + "]";
 	}
 
     
