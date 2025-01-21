@@ -8,9 +8,7 @@ import org.springframework.context.ApplicationContext;
 public class GestaoDeEspacoFisicoApplication {
 
 	public static void main(String[] args) {
-		ApplicationContext context =  SpringApplication.run(GestaoDeEspacoFisicoApplication.class, args);
-		Menu menu = new Menu(context);
-		menu.startMenu();
+		SpringApplication.run(GestaoDeEspacoFisicoApplication.class, args);
 		}
 		
 	}

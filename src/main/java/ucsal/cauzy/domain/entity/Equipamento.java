@@ -9,7 +9,7 @@ public class Equipamento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idequipamento;
+    private Integer idEquipamento;
 
     @Column(name = "nome_equipamento", nullable = false, length = 255)
     private String nomeEquipamento;
@@ -18,12 +18,12 @@ public class Equipamento implements Serializable {
     @JoinColumn(name = "idespacofisico")
     private EspacoFisico espacoFisico;
 
-	public Integer getIdequipamento() {
-		return idequipamento;
+	public Integer getIdEquipamento() {
+		return idEquipamento;
 	}
 
-	public void setIdequipamento(Integer idequipamento) {
-		this.idequipamento = idequipamento;
+	public void setIdEquipamento(Integer idEquipamento) {
+		this.idEquipamento = idEquipamento;
 	}
 
 	public String getNomeEquipamento() {
@@ -44,7 +44,7 @@ public class Equipamento implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Equipamento [idequipamento=" + idequipamento + ", nomeEquipamento=" + nomeEquipamento
+		return "Equipamento [idequipamento=" + idEquipamento + ", nomeEquipamento=" + nomeEquipamento
 				+ ", espacoFisico=" + espacoFisico + "]";
 	}
 }
