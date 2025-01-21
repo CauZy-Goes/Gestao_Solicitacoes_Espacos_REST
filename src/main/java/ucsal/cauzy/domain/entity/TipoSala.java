@@ -9,17 +9,17 @@ public class TipoSala implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idtiposala;
+    private Integer idTipoSala;
 
     @Column(name = "nome_sala", nullable = false, length = 50)
     private String nomeSala;
 
-	public Integer getIdtiposala() {
-		return idtiposala;
+	public Integer getIdTipoSala() {
+		return idTipoSala;
 	}
 
-	public void setIdtiposala(Integer idtiposala) {
-		this.idtiposala = idtiposala;
+	public void setIdTipoSala(Integer idtiposala) {
+		this.idTipoSala = idtiposala;
 	}
 
 	public String getNomeSala() {
@@ -32,7 +32,7 @@ public class TipoSala implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TipoSala [idtiposala=" + idtiposala + ", nomeSala=" + nomeSala + "]";
+		return "TipoSala [idtiposala=" + idTipoSala + ", nomeSala=" + nomeSala + "]";
 	}
 
 }
