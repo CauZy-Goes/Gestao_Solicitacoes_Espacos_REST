@@ -17,7 +17,7 @@ public class Usuario implements Serializable {
     @Column(name = "email", nullable = false, length = 255)
     private String email;
 
-    @ManyToOne
+	@ManyToOne
     @JoinColumn(name = "idcargo", nullable = false)
     private Cargo cargo;
 

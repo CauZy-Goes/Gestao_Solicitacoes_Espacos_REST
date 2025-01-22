@@ -18,10 +18,10 @@ public class Solicitacoes implements Serializable {
     @Column(name = "data_hora_aprovacao", nullable = true)
     private LocalDateTime dataHoraAprovacao;
 
-    @Column(name = "data_hora_locacao" , nullable = false) 
+    @Column(name = "data_hora_locacao" , nullable = false)
     private LocalDateTime dataHoraLocacao;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "idusuario_avaliador", nullable = true)
     private Usuario usuarioAvaliador;
 

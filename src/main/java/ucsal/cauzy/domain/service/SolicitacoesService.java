@@ -3,7 +3,9 @@ package ucsal.cauzy.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucsal.cauzy.domain.entity.Solicitacoes;
+import ucsal.cauzy.domain.entity.Usuario;
 import ucsal.cauzy.domain.repository.SolicitacoesRepository;
+import ucsal.cauzy.domain.repository.UsuarioRepository;
 import ucsal.cauzy.domain.service.exceptions.ResourceNotFoundException;
 import ucsal.cauzy.rest.dto.SolicitacoesDTO;
 import ucsal.cauzy.rest.mapper.SolicitacoesMapper;
@@ -17,6 +19,9 @@ public class SolicitacoesService {
 
     @Autowired
     private SolicitacoesRepository solicitacoesRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private SolicitacoesMapper solicitacoesMapper;
@@ -36,6 +41,9 @@ public class SolicitacoesService {
 
     public SolicitacoesDTO save(SolicitacoesDTO solicitacoesDTO) {
         Solicitacoes solicitacoes = solicitacoesMapper.toEntity(solicitacoesDTO);
+        Usuario usuarioAvaliador = solicitacoesDTO.getIdUsuarioAvaliador() == null ? null :
+                usuarioRepository.findById(solicitacoesDTO.getIdUsuarioAvaliador()).orElse(null);
+        solicitacoes.setUsuarioAvaliador(usuarioAvaliador);
         Solicitacoes savedSolicitacoes = solicitacoesRepository.save(solicitacoes);
         return solicitacoesMapper.toDTO(savedSolicitacoes);
     }

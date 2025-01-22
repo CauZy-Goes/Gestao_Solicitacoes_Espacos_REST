@@ -8,6 +8,7 @@ import ucsal.cauzy.rest.dto.SolicitacoesDTO;
 @Mapper(componentModel = "spring")
 public interface SolicitacoesMapper {
 
+
     @Mapping(source = "usuarioAvaliador.idUsuario", target = "idUsuarioAvaliador")
     @Mapping(source = "usuarioSolicitante.idUsuario", target = "idUsuarioSolicitante")
     @Mapping(source = "espacoFisico.idEspacoFisico", target = "idEspacoFisico")
