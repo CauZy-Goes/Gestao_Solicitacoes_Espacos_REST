@@ -25,9 +25,7 @@ public class SolicitacoesController {
     // GET /api/solicitacoes/{id} - Retorna um solicitacoes por ID
     @GetMapping("/{id}")
     public ResponseEntity<SolicitacoesDTO> getSolicitacoesById(@PathVariable Integer id) {
-        return solicitacoesService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok().body(solicitacoesService.findById(id));
     }
 
     // POST /api/solicitacoes - Cria um novo solicitacoes

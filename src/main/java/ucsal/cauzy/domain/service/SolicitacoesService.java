@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucsal.cauzy.domain.entity.Solicitacoes;
 import ucsal.cauzy.domain.repository.SolicitacoesRepository;
+import ucsal.cauzy.domain.service.exceptions.ResourceNotFoundException;
 import ucsal.cauzy.rest.dto.SolicitacoesDTO;
 import ucsal.cauzy.rest.mapper.SolicitacoesMapper;
 
@@ -27,9 +28,10 @@ public class SolicitacoesService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<SolicitacoesDTO> findById(Integer id) {
+    public SolicitacoesDTO findById(Integer id) {
         return solicitacoesRepository.findById(id)
-                .map(solicitacoesMapper::toDTO);
+                .map(solicitacoesMapper::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public SolicitacoesDTO save(SolicitacoesDTO solicitacoesDTO) {
@@ -45,14 +47,14 @@ public class SolicitacoesService {
             Solicitacoes updatedSolicitacoes = solicitacoesRepository.save(solicitacoes);
             return solicitacoesMapper.toDTO(updatedSolicitacoes);
         }
-        throw new IllegalArgumentException("Solicitacoes não encontrado com o ID: " + id);
+        throw new ResourceNotFoundException(id);
     }
 
     public void delete(Integer id) {
         if (solicitacoesRepository.existsById(id)) {
             solicitacoesRepository.deleteById(id);
         } else {
-            throw new IllegalArgumentException("Solicitacoes não encontrado com o ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
     }
 }

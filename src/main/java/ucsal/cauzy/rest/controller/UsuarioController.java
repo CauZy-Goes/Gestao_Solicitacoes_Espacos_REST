@@ -3,6 +3,7 @@ package ucsal.cauzy.rest.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ucsal.cauzy.domain.service.CargoService;
 import ucsal.cauzy.domain.service.UsuarioService;
 import ucsal.cauzy.rest.dto.UsuarioDTO;
 
@@ -14,6 +15,8 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private CargoService cargoService;
 
     // GET /api/usuarios - Lista todos os usuarios
     @GetMapping
@@ -25,9 +28,7 @@ public class UsuarioController {
     // GET /api/usuarios/{id} - Retorna um usuario por ID
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO> getUsuarioById(@PathVariable Integer id) {
-        return usuarioService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok().body(usuarioService.findById(id));
     }
 
     // POST /api/usuarios - Cria um novo usuario

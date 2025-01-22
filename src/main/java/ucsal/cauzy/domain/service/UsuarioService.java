@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucsal.cauzy.domain.entity.Usuario;
 import ucsal.cauzy.domain.repository.UsuarioRepository;
+import ucsal.cauzy.domain.service.exceptions.ResourceNotFoundException;
 import ucsal.cauzy.rest.dto.UsuarioDTO;
 import ucsal.cauzy.rest.mapper.UsuarioMapper;
 
@@ -27,9 +28,10 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<UsuarioDTO> findById(Integer id) {
+    public UsuarioDTO findById(Integer id) {
         return usuarioRepository.findById(id)
-                .map(usuarioMapper::toDTO);
+                .map(usuarioMapper::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public UsuarioDTO save(UsuarioDTO usuarioDTO) {
@@ -45,14 +47,14 @@ public class UsuarioService {
             Usuario updatedUsuario = usuarioRepository.save(usuario);
             return usuarioMapper.toDTO(updatedUsuario);
         }
-        throw new IllegalArgumentException("Usuario não encontrado com o ID: " + id);
+        throw new ResourceNotFoundException(id);
     }
 
     public void delete(Integer id) {
         if (usuarioRepository.existsById(id)) {
             usuarioRepository.deleteById(id);
         } else {
-            throw new IllegalArgumentException("Usuario não encontrado com o ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucsal.cauzy.domain.entity.Status;
 import ucsal.cauzy.domain.repository.StatusRepository;
+import ucsal.cauzy.domain.service.exceptions.ResourceNotFoundException;
 import ucsal.cauzy.rest.dto.StatusDTO;
 import ucsal.cauzy.rest.mapper.StatusMapper;
 
@@ -27,9 +28,10 @@ public class StatusService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<StatusDTO> findById(Integer id) {
+    public StatusDTO findById(Integer id) {
         return statusRepository.findById(id)
-                .map(statusMapper::toDTO);
+                .map(statusMapper::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public StatusDTO save(StatusDTO statusDTO) {
@@ -45,14 +47,14 @@ public class StatusService {
             Status updatedStatus = statusRepository.save(status);
             return statusMapper.toDTO(updatedStatus);
         }
-        throw new IllegalArgumentException("Status não encontrado com o ID: " + id);
+        throw new ResourceNotFoundException(id);
     }
 
     public void delete(Integer id) {
         if (statusRepository.existsById(id)) {
             statusRepository.deleteById(id);
         } else {
-            throw new IllegalArgumentException("Status não encontrado com o ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
     }
 }

@@ -25,9 +25,7 @@ public class EspacoFisicoController {
     // GET /api/espacoFisicos/{id} - Retorna um espacoFisico por ID
     @GetMapping("/{id}")
     public ResponseEntity<EspacoFisicoDTO> getEspacoFisicoById(@PathVariable Integer id) {
-        return espacoFisicoService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok().body(espacoFisicoService.findById(id));
     }
 
     // POST /api/espacoFisicos - Cria um novo espacoFisico

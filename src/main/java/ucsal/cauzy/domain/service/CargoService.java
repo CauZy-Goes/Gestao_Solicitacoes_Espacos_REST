@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucsal.cauzy.domain.entity.Cargo;
 import ucsal.cauzy.domain.repository.CargoRepository;
+import ucsal.cauzy.domain.service.exceptions.ResourceNotFoundException;
 import ucsal.cauzy.rest.dto.CargoDTO;
 import ucsal.cauzy.rest.mapper.CargoMapper;
 
@@ -27,9 +28,10 @@ public class CargoService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<CargoDTO> findById(Integer id) {
+    public CargoDTO findById(Integer id) {
         return cargoRepository.findById(id)
-                .map(cargoMapper::toDTO);
+                .map(cargoMapper::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public CargoDTO save(CargoDTO cargoDTO) {
@@ -45,14 +47,14 @@ public class CargoService {
             Cargo updatedCargo = cargoRepository.save(cargo);
             return cargoMapper.toDTO(updatedCargo);
         }
-        throw new IllegalArgumentException("Cargo não encontrado com o ID: " + id);
+        throw new ResourceNotFoundException(id);
     }
 
     public void delete(Integer id) {
         if (cargoRepository.existsById(id)) {
             cargoRepository.deleteById(id);
         } else {
-            throw new IllegalArgumentException("Cargo não encontrado com o ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
     }
 }

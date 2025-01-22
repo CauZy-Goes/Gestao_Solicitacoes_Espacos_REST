@@ -25,9 +25,7 @@ public class CargoController {
     // GET /api/cargos/{id} - Retorna um cargo por ID
     @GetMapping("/{id}")
     public ResponseEntity<CargoDTO> getCargoById(@PathVariable Integer id) {
-        return cargoService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok().body(cargoService.findById(id));
     }
 
     // POST /api/cargos - Cria um novo cargo

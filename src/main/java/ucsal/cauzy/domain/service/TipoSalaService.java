@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucsal.cauzy.domain.entity.TipoSala;
 import ucsal.cauzy.domain.repository.TipoSalaRepository;
+import ucsal.cauzy.domain.service.exceptions.ResourceNotFoundException;
 import ucsal.cauzy.rest.dto.TipoSalaDTO;
 import ucsal.cauzy.rest.mapper.TipoSalaMapper;
 
@@ -27,9 +28,10 @@ public class TipoSalaService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<TipoSalaDTO> findById(Integer id) {
+    public TipoSalaDTO findById(Integer id) {
         return tipoSalaRepository.findById(id)
-                .map(tipoSalaMapper::toDTO);
+                .map(tipoSalaMapper::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public TipoSalaDTO save(TipoSalaDTO tipoSalaDTO) {
@@ -45,14 +47,14 @@ public class TipoSalaService {
             TipoSala updatedTipoSala = tipoSalaRepository.save(tipoSala);
             return tipoSalaMapper.toDTO(updatedTipoSala);
         }
-        throw new IllegalArgumentException("TipoSala não encontrado com o ID: " + id);
+        throw new ResourceNotFoundException(id);
     }
 
     public void delete(Integer id) {
         if (tipoSalaRepository.existsById(id)) {
             tipoSalaRepository.deleteById(id);
         } else {
-            throw new IllegalArgumentException("TipoSala não encontrado com o ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
     }
 }

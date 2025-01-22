@@ -25,9 +25,7 @@ public class StatusController {
     // GET /api/status/{id} - Retorna um status por ID
     @GetMapping("/{id}")
     public ResponseEntity<StatusDTO> getStatusById(@PathVariable Integer id) {
-        return statusService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok().body(statusService.findById(id));
     }
 
     // POST /api/status - Cria um novo status

@@ -25,9 +25,7 @@ public class LogAcoesController {
     // GET /api/logAcoes/{id} - Retorna um logAcoes por ID
     @GetMapping("/{id}")
     public ResponseEntity<LogAcoesDTO> getLogAcoesById(@PathVariable Integer id) {
-        return logAcoesService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok().body(logAcoesService.findById(id));
     }
 
     // POST /api/logAcoes - Cria um novo logAcoes

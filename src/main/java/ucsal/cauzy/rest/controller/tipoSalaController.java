@@ -25,9 +25,7 @@ public class tipoSalaController {
     // GET /api/tipoSalas/{id} - Retorna um tipoSala por ID
     @GetMapping("/{id}")
     public ResponseEntity<TipoSalaDTO> getTipoSalaById(@PathVariable Integer id) {
-        return tipoSalaService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok().body(tipoSalaService.findById(id));
     }
 
     // POST /api/tipoSalas - Cria um novo tipoSala

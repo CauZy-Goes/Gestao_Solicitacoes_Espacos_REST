@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucsal.cauzy.domain.entity.Equipamento;
 import ucsal.cauzy.domain.repository.EquipamentoRepository;
+import ucsal.cauzy.domain.service.exceptions.ResourceNotFoundException;
 import ucsal.cauzy.rest.dto.EquipamentoDTO;
 import ucsal.cauzy.rest.mapper.EquipamentoMapper;
 
@@ -27,9 +28,10 @@ public class EquipamentoService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<EquipamentoDTO> findById(Integer id) {
+    public EquipamentoDTO findById(Integer id) {
         return equipamentoRepository.findById(id)
-                .map(equipamentoMapper::toDTO);
+                .map(equipamentoMapper::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public EquipamentoDTO save(EquipamentoDTO equipamentoDTO) {
@@ -45,14 +47,14 @@ public class EquipamentoService {
             Equipamento updatedEquipamento = equipamentoRepository.save(equipamento);
             return equipamentoMapper.toDTO(updatedEquipamento);
         }
-        throw new IllegalArgumentException("Equipamento não encontrado com o ID: " + id);
+        throw new ResourceNotFoundException(id);
     }
 
     public void delete(Integer id) {
         if (equipamentoRepository.existsById(id)) {
             equipamentoRepository.deleteById(id);
         } else {
-            throw new IllegalArgumentException("Equipamento não encontrado com o ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
     }
 }

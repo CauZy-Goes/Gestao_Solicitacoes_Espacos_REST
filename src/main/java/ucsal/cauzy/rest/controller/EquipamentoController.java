@@ -25,9 +25,7 @@ public class EquipamentoController {
     // GET /api/equipamentos/{id} - Retorna um equipamento por ID
     @GetMapping("/{id}")
     public ResponseEntity<EquipamentoDTO> getEquipamentoById(@PathVariable Integer id) {
-        return equipamentoService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok().body(equipamentoService.findById(id));
     }
 
     // POST /api/equipamentos - Cria um novo equipamento

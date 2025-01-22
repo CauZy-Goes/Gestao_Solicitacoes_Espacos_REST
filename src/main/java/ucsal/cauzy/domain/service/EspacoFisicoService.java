@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucsal.cauzy.domain.entity.EspacoFisico;
 import ucsal.cauzy.domain.repository.EspacoFisicoRepository;
+import ucsal.cauzy.domain.service.exceptions.ResourceNotFoundException;
 import ucsal.cauzy.rest.dto.EspacoFisicoDTO;
 import ucsal.cauzy.rest.mapper.EspacoFisicoMapper;
 
@@ -27,9 +28,10 @@ public class EspacoFisicoService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<EspacoFisicoDTO> findById(Integer id) {
+    public EspacoFisicoDTO findById(Integer id) {
         return espacoFisicoRepository.findById(id)
-                .map(espacoFisicoMapper::toDTO);
+                .map(espacoFisicoMapper::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public EspacoFisicoDTO save(EspacoFisicoDTO espacoFisicoDTO) {
@@ -45,14 +47,14 @@ public class EspacoFisicoService {
             EspacoFisico updatedEspacoFisico = espacoFisicoRepository.save(espacoFisico);
             return espacoFisicoMapper.toDTO(updatedEspacoFisico);
         }
-        throw new IllegalArgumentException("EspacoFisico não encontrado com o ID: " + id);
+        throw new ResourceNotFoundException(id);
     }
 
     public void delete(Integer id) {
         if (espacoFisicoRepository.existsById(id)) {
             espacoFisicoRepository.deleteById(id);
         } else {
-            throw new IllegalArgumentException("EspacoFisico não encontrado com o ID: " + id);
+            throw new ResourceNotFoundException(id);
         }
     }
 }
