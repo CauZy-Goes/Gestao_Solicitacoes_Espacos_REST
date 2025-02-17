@@ -9,8 +9,10 @@ import ucsal.cauzy.rest.dto.UsuarioDTO;
 public interface UsuarioMapper {
 
     @Mapping(source = "cargo.idCargo", target = "idCargo")
+    @Mapping(source = "senha", target = "senha")
     UsuarioDTO toDTO(Usuario usuario);
 
     @Mapping(source = "idCargo", target = "cargo.idCargo")
+    @Mapping(source = "senha", target = "senha")
     Usuario toEntity(UsuarioDTO usuarioDTO);
 }
