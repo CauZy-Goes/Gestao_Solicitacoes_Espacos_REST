@@ -17,6 +17,9 @@ public class Usuario implements Serializable {
     @Column(name = "email", nullable = false, length = 255, unique = true)
     private String email;
 
+	@Column(name = "senha" , nullable = false, length = 255)
+	private String senha;
+
 	@ManyToOne
     @JoinColumn(name = "idcargo", nullable = false)
     private Cargo cargo;
@@ -53,11 +56,23 @@ public class Usuario implements Serializable {
 		this.cargo = cargo;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	@Override
 	public String toString() {
-		return "Usuario [idusuario=" + idUsuario + ", nomeUsuario=" + nomeUsuario + ", email=" + email + ", cargo="
-				+ cargo + "]";
+		return "Usuario{" +
+				"idUsuario=" + idUsuario +
+				", nomeUsuario='" + nomeUsuario + '\'' +
+				", email='" + email + '\'' +
+				", senha='" + senha + '\'' +
+				", cargo=" + cargo +
+				'}';
 	}
-    
 }
 
