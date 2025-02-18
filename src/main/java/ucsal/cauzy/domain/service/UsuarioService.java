@@ -34,6 +34,12 @@ public class UsuarioService {
                 .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    public UsuarioDTO findByEmail(String email) {
+        return usuarioRepository.findByEmail(email)
+                .map(usuarioMapper::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException(email));
+    }
+
     public UsuarioDTO save(UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
         System.out.println(usuario);
