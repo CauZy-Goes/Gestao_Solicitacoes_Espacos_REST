@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucsal.cauzy.domain.entity.Usuario;
 import ucsal.cauzy.domain.repository.UsuarioRepository;
+import ucsal.cauzy.domain.service.exceptions.EmailAlreadyExistsException;
 import ucsal.cauzy.domain.service.exceptions.ResourceNotFoundException;
 import ucsal.cauzy.rest.dto.UsuarioDTO;
 import ucsal.cauzy.rest.mapper.UsuarioMapper;
@@ -29,20 +30,30 @@ public class UsuarioService {
     }
 
     public UsuarioDTO findById(Integer id) {
+
         return usuarioRepository.findById(id)
                 .map(usuarioMapper::toDTO)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public UsuarioDTO findByEmail(String email) {
-        return usuarioRepository.findByEmail(email)
+        String emailFormatado = email.trim();
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(emailFormatado);
+        return usuarioRepository.findByEmail(emailFormatado)
                 .map(usuarioMapper::toDTO)
-                .orElseThrow(() -> new ResourceNotFoundException(email));
+                .orElseThrow(() -> new ResourceNotFoundException(emailFormatado));
+    }
+
+    public void checkEmail(Usuario usuario, Integer id) {
+        Optional<Usuario> emailAlreadyExists = usuarioRepository.findByEmail(usuario.getEmail());
+        if (emailAlreadyExists.isPresent() && !emailAlreadyExists.get().getIdUsuario().equals(id)) {
+            throw new EmailAlreadyExistsException();
+        }
     }
 
     public UsuarioDTO save(UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
-        System.out.println(usuario);
+        checkEmail(usuario, usuario.getIdUsuario());
         Usuario savedUsuario = usuarioRepository.save(usuario);
         return usuarioMapper.toDTO(savedUsuario);
     }
